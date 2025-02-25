@@ -44,17 +44,15 @@ export function AAPLView() {
           chart={data}
         />)
         : (
-          <SimpleLayout content={{ compact: true }}>
-            <Container>
-              <Typography variant="h3" sx={{ mb: 2 }}>
-                Sorry, The data could not be obtained
-              </Typography>
+          <Container>
+            <Typography variant="h3" sx={{ mb: 2 }}>
+              Sorry, The data could not be obtained
+            </Typography>
 
-              <Typography sx={{ color: 'text.secondary' }}>
-                Try again later
-              </Typography>
-            </Container>
-          </SimpleLayout>
+            <Typography sx={{ color: 'text.secondary' }}>
+              Try again later
+            </Typography>
+          </Container>
         )}
     </DashboardContent>
   );
