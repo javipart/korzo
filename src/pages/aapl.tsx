@@ -2,9 +2,8 @@
 import { Helmet } from 'react-helmet-async';
 
 import { CONFIG } from 'src/config-global';
-import { AAPLView } from 'src/sections/aapl/view';
 
-import { UserView } from 'src/sections/user/view';
+import { AAPLView } from 'src/sections/aapl/view';
 
 // ----------------------------------------------------------------------
 
