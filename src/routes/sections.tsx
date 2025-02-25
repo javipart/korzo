@@ -8,7 +8,10 @@ import { varAlpha } from 'src/theme/styles';
 import { AuthLayout } from 'src/layouts/auth';
 import { DashboardLayout } from 'src/layouts/dashboard';
 
+import { useAuth } from '@workos-inc/authkit-react';
+
 import { ProtectedRoute } from './components/protected-route';
+
 // ----------------------------------------------------------------------
 
 export const HomePage = lazy(() => import('src/pages/home'));
@@ -35,6 +38,12 @@ const renderFallback = (
 );
 
 export function Router() {
+  const { user, isLoading } = useAuth();
+
+  function SignInRedirect() {
+    return user ? <Navigate to="/" replace /> : <SignInPage />;
+  }
+
   return useRoutes([
     {
       element: (
@@ -58,7 +67,7 @@ export function Router() {
       path: 'sign-in',
       element: (
         <AuthLayout>
-          <SignInPage />
+          <SignInRedirect />
         </AuthLayout>
       ),
     },
