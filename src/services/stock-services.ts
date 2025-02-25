@@ -38,7 +38,7 @@ export const getAAPLStockPrices = async (): Promise<ChartData> => {
   try {
     const response = await axios.get<AlphaVantageResponse>(API_URL);
     const dataMonhly = response.data["Monthly Adjusted Time Series"];
-
+    if (!dataMonhly) throw new Error('Error fetching data');
     const sortedDates = Object.keys(dataMonhly).sort().slice(-12);
 
     const chartData: ChartData = {

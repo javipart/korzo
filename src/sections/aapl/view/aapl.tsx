@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 
-import { Typography } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 
+import { SimpleLayout } from "src/layouts/simple";
 import { DashboardContent } from "src/layouts/dashboard";
 import { getAAPLStockPrices } from "src/services/stock-services";
 
@@ -19,13 +20,16 @@ export function AAPLView() {
   const [data, setData] = useState<ChartData>({ categories: [], series: [] });
 
   useEffect(() => {
-    const getData = async () => {
-      const stockData = await getAAPLStockPrices();
-      console.log(stockData)
-      setData(stockData);
-    }
+    try {
+      const getData = async () => {
+        const stockData = await getAAPLStockPrices();
+        setData(stockData);
+      }
 
-    getData();
+      getData();
+    } catch (error) {
+      console.log(error)
+    }
   }, []);
 
   return (
@@ -33,12 +37,25 @@ export function AAPLView() {
       <Typography variant="h4" sx={{ mb: { xs: 3, md: 5 } }}>
         Apple Stock Prices 📈💰
       </Typography>
+      {data.categories.length > 0 ? (
+        <AnalyticsAppleStock
+          title="Stock Prices"
+          subheader="Last 12 Months"
+          chart={data}
+        />)
+        : (
+          <SimpleLayout content={{ compact: true }}>
+            <Container>
+              <Typography variant="h3" sx={{ mb: 2 }}>
+                Sorry, The data could not be obtained
+              </Typography>
 
-      <AnalyticsAppleStock
-        title="Stock Prices"
-        subheader="Last 12 Months"
-        chart={data}
-      />
+              <Typography sx={{ color: 'text.secondary' }}>
+                Try again later
+              </Typography>
+            </Container>
+          </SimpleLayout>
+        )}
     </DashboardContent>
   );
 }

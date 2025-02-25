@@ -1,4 +1,5 @@
 import { lazy, Suspense } from 'react';
+import { useAuth } from '@workos-inc/authkit-react';
 import { Outlet, Navigate, useRoutes } from 'react-router-dom';
 
 import Box from '@mui/material/Box';
@@ -7,8 +8,6 @@ import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgr
 import { varAlpha } from 'src/theme/styles';
 import { AuthLayout } from 'src/layouts/auth';
 import { DashboardLayout } from 'src/layouts/dashboard';
-
-import { useAuth } from '@workos-inc/authkit-react';
 
 import { ProtectedRoute } from './components/protected-route';
 
@@ -38,7 +37,7 @@ const renderFallback = (
 );
 
 export function Router() {
-  const { user, isLoading } = useAuth();
+  const { user } = useAuth();
 
   function SignInRedirect() {
     return user ? <Navigate to="/" replace /> : <SignInPage />;
